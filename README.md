@@ -17,11 +17,11 @@ Transliterate spanish to Andalûh EPA on this Discord Servers with this bot.
 We recommend to setup a python virtualenvironment to run the bot. Let's create a virtualenv for python3 and install the dependencies using the `requirements.txt` file:
 
 ```
-$ cd andaluh-discord/
-~/andaluh-discord$ python3 -m venv .env
-~/andaluh-discord$ pip3 install -r requirements
-~/andaluh-discord$ source .env/bin/activate
-(env) ~/andaluh-discord$ pip install -r requirements.txt
+cd andaluh-discord/
+python3 -m venv .env
+pip3 install -r requirements
+source .env/bin/activate
+pip install -r requirements.txt
 ```
 Now, please create your Discord Bot as per the following instructions: https://discordpy.readthedocs.io/en/latest/discord.html
 
