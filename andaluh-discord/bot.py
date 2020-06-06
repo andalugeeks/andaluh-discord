@@ -12,8 +12,8 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix='/')
 
 @bot.command()
-async def an(ctx,p):
-    str = requests.get('https://api.andaluh.es/epa', params=dict(spanish= p , escapeLinks=True, vaf=u'z')).json()
+async def an(ctx, *args):
+    str = requests.get('https://api.andaluh.es/epa', params=dict(spanish=' '.join(args), escapeLinks=True, vaf=u'z')).json()
     await ctx.send(str['andaluh'])
 
 if __name__ == '__main__':
