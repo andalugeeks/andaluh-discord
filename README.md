@@ -2,6 +2,9 @@
 
 Transliterate spanish to Andalûh EPA on this Discord Servers with this bot.
 
+<img width="800" alt="andaluh-discord about" src="https://github.com/andalugeeks/andaluh-discord/raw/master/img/andaluh-discord.png?raw=true">
+
+
 ## Table of Contents
 
 - [Install](#install)
@@ -11,13 +14,7 @@ Transliterate spanish to Andalûh EPA on this Discord Servers with this bot.
 
 ## Install
 
-Use the `requirements.txt` file to install dependencies.
-
-```
-$ pip3 install -r requirements
-``` 
-
-We recommend to setup a python virtualenvironment to run the bot. Let's create a virtualenv for python3 and install the dependencies using the `requirements.txt`file:
+We recommend to setup a python virtualenvironment to run the bot. Let's create a virtualenv for python3 and install the dependencies using the `requirements.txt` file:
 
 ```
 $ cd andaluh-discord/
@@ -26,10 +23,7 @@ $ cd andaluh-discord/
 ~/andaluh-discord$ source .env/bin/activate
 (env) ~/andaluh-discord$ pip install -r requirements.txt
 ```
-
-## Usage
-
-First, please create your Discord Bot as per the following instructions: https://discordpy.readthedocs.io/en/latest/discord.html
+Now, please create your Discord Bot as per the following instructions: https://discordpy.readthedocs.io/en/latest/discord.html
 
 Once you have your bot TOKEN, please set `DISCORD_TOKEN` environment variable and run `andaluh-discord/bot.py`
 
@@ -45,6 +39,15 @@ DISCORD_TOKEN={your-bot-token}
 
 $ python3 andaluh-discord/bot.py
 ```
+
+## Usage
+
+The bot comes with 4 slash commands (starting with /)
+
+* `/an`: Get Andalûh EPA standard transliteration (using 'ç')
+* `/anz`: Andalûh EPA Zezeo transliteration
+* `/ans`: Andalûh EPA Seseo transliteration
+* `/anh`: Andalûh EPA Heheo transliteration
 
 ## Support
 
