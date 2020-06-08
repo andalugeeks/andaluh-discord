@@ -2,4 +2,4 @@
 .env
 
 # Bot secrets
-./andaluh-discord/.env
+./app/.env

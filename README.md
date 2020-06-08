@@ -14,7 +14,7 @@ Transliterate spanish to Andalûh EPA on this Discord Servers with this bot.
 
 ## Install
 
-We recommend to setup a python virtualenvironment to run the bot. Let's create a virtualenv for python3 and install the dependencies using the `requirements.txt` file:
+You can setup a python virtualenvironment to run the bot. Let's create a virtualenv for python3 and install the dependencies using the `requirements.txt` file:
 
 ```
 cd andaluh-discord/
@@ -38,6 +38,12 @@ $ cat andaluh-discord/.env
 DISCORD_TOKEN={your-bot-token}
 
 $ python3 andaluh-discord/bot.py
+```
+
+A `docker-compose` file is also included. If you want to run the bot on a dockerized environment, ddit your `DISCORD_TOKEN` inside the `docker-compose.yml` file and run:
+
+```
+$ docker-compose up --build -d
 ```
 
 ## Usage

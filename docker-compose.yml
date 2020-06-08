@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  bot:
+    image: andaluh/discord:v1
+    container_name: andaluh_discord
+    restart: always
+    build: .
+    environment:
+      - DISCORD_TOKEN=REPLACE_WITH_YOURS # Get yours here: https://discordpy.readthedocs.io/en/latest/discord.html

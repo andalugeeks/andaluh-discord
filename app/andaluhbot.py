@@ -63,6 +63,12 @@ async def anh(ctx, *args):
     str = requests.get(API_ANDALUH, params=dict(spanish=' '.join(args), escapeLinks=True, vaf=u'h')).json()
     await ctx.send(str['andaluh'])
 
+def main():
+    import os
+
+    TOKEN = os.getenv('DISCORD_TOKEN')
+    bot.run(TOKEN)
+
 if __name__ == '__main__':
     # Discord secret token storage management
     # More info: https://realpython.com/how-to-make-a-discord-bot-python/
