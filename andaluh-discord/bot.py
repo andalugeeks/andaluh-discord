@@ -17,6 +17,32 @@ API_ANDALUH = 'https://api.andaluh.es/epa'
 # Discord bot instance
 bot = commands.Bot(command_prefix='/')
 
+HELP = """
+🇳🇬 Guenâ! Çoy un bot trâccrîttôh Andalûh EPA. Dîppongo de lô çigientê comandô. Pruébalô:
+
+/an   Trâccribe Câtteyano - Andalûh (EPA) uçando grafía integraora 'ç'
+/anz  Iguâh pero zezeando
+/ans  Iguâh pero seseando
+/anh  Iguâh pero heheando
+
+Çi quierê çabêh mâh çobre Andalûh y EPA:
+
+👉 Nuêttra páhina web https://andaluh.es
+👉 Trâccrîttôh online https://andaluh.es/transcriptor
+👉 Teclao Andalûh EPA https://andaluh.es/teclado-andaluz
+"""
+
+@bot.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(bot))
+
+# Remove default help and add ours
+bot.remove_command('help')
+@bot.command(name='help', help='Bot help')
+async def an(ctx, *args):
+    await ctx.send(HELP)
+
+# Andaluh commands
 @bot.command(name='an', help='Type in spanish to get Andalûh EPA transliteration.')
 async def an(ctx, *args):
     str = requests.get(API_ANDALUH, params=dict(spanish=' '.join(args), escapeLinks=True)).json()
