@@ -25,19 +25,19 @@ pip install -r requirements.txt
 ```
 Now, please create your Discord Bot as per the following instructions: https://discordpy.readthedocs.io/en/latest/discord.html
 
-Once you have your bot TOKEN, please set `DISCORD_TOKEN` environment variable and run `andaluh-discord/bot.py`
+Once you have your bot TOKEN, please set `DISCORD_TOKEN` environment variable and run `app/andaluhbot.py`
 
 ```
-$ DISCORD_TOKEN=mytoken python3 andaluh-discord/bot.py
+$ DISCORD_TOKEN=mytoken python3 app/andaluhbot.py
 ```
 
-You can also store your token as an env var included in `./andaluh-discord/.env`:
+You can also store your token as an env var included in `./app/.env`:
 
 ```
-$ cat andaluh-discord/.env 
+$ cat app/.env 
 DISCORD_TOKEN={your-bot-token}
 
-$ python3 andaluh-discord/bot.py
+$ python3 app/andaluhbot.py
 ```
 
 A `docker-compose` file is also included. If you want to run the bot on a dockerized environment, ddit your `DISCORD_TOKEN` inside the `docker-compose.yml` file and run:
