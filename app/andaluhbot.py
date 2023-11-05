@@ -8,6 +8,7 @@
 import os
 
 import requests
+from discord import Intents, Interaction, app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -15,7 +16,9 @@ from dotenv import load_dotenv
 API_ANDALUH = "https://api.andaluh.es/epa"
 
 # Discord bot instance
-bot = commands.Bot(command_prefix=commands.when_mentioned)
+bot = commands.Bot(
+    command_prefix=commands.when_mentioned, help_command=None, intents=Intents.none()
+)
 
 HELP = """
 🇳🇬 Guenâ! Çoy un bot trâccrîttôh Andalûh EPA. Dîppongo de lô çigientê comandô. Pruébalô:
@@ -38,55 +41,56 @@ async def on_ready():
     print(f"Logged in as {bot}")
 
 
-# Remove default help and add ours
-bot.remove_command("help")
+@bot.command(help="Sync bot tree")
+async def sync(ctx: commands.Context):
+    await bot.tree.sync()
+    await ctx.send("Synced application commands")
 
 
-@bot.command(name="help", help="Bot help")
-async def an(ctx, *args):
+@bot.command(help="Bot help")
+async def help(ctx: commands.Context):
     await ctx.send(HELP)
 
 
-# Andaluh commands
-@bot.command(name="an", help="Type in spanish to get Andalûh EPA transliteration.")
-async def an(ctx, *args):
+# Andaluh slash commands
+@bot.tree.command(description="Type in spanish to get Andalûh EPA transliteration.")
+@app_commands.describe(text="Text to transliterate")
+async def an(interaction: Interaction, text: str):
     result = requests.get(
-        API_ANDALUH, params=dict(spanish=" ".join(args), escapeLinks=True)
+        API_ANDALUH, params=dict(spanish=text, escapeLinks=True)
     ).json()
-    await ctx.send(result["andaluh"])
+    await interaction.response.send_message(result["andaluh"])
 
 
-@bot.command(
-    name="anz", help="Type in spanish to get Andalûh EPA Zezeo transliteration."
-)
-async def anz(ctx, *args):
+@bot.tree.command(help="Type in spanish to get Andalûh EPA Zezeo transliteration.")
+@app_commands.describe(text="Text to transliterate")
+async def anz(interaction: Interaction, text: str):
     result = requests.get(
-        API_ANDALUH, params=dict(spanish=" ".join(args), escapeLinks=True, vaf="z")
+        API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="z")
     ).json()
-    await ctx.send(result["andaluh"])
+    await interaction.response.send_message(result["andaluh"])
 
 
-@bot.command(
-    name="ans", help="Type in spanish to get Andalûh EPA Seseo transliteration."
-)
-async def ans(ctx, *args):
+@bot.tree.command(help="Type in spanish to get Andalûh EPA Seseo transliteration.")
+@app_commands.describe(text="Text to transliterate")
+async def ans(interaction: Interaction, text: str):
     result = requests.get(
-        API_ANDALUH, params=dict(spanish=" ".join(args), escapeLinks=True, vaf="s")
+        API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="s")
     ).json()
-    await ctx.send(result["andaluh"])
+    await interaction.response.send_message(result["andaluh"])
 
 
-@bot.command(
-    name="anh", help="Type in spanish to get Andalûh EPA Heheo transliteration."
-)
-async def anh(ctx, *args):
+@bot.tree.command(help="Type in spanish to get Andalûh EPA Heheo transliteration.")
+@app_commands.describe(text="Text to transliterate")
+async def an(interaction: Interaction, text: str):
     result = requests.get(
-        API_ANDALUH, params=dict(spanish=" ".join(args), escapeLinks=True, vaf="h")
+        API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="h")
     ).json()
-    await ctx.send(result["andaluh"])
+    await interaction.response.send_message(result["andaluh"])
 
 
 def main():
+    load_dotenv()
     TOKEN = os.getenv("DISCORD_TOKEN")
     bot.run(TOKEN)
 
@@ -94,7 +98,4 @@ def main():
 if __name__ == "__main__":
     # Discord secret token storage management
     # More info: https://realpython.com/how-to-make-a-discord-bot-python/
-
-    load_dotenv()
-    TOKEN = os.getenv("DISCORD_TOKEN")
-    bot.run(TOKEN)
+    main()
