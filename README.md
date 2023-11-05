@@ -1,6 +1,6 @@
 # Andaluh Discord Bot
 
-Transliterate spanish to Andalûh EPA on this Discord Servers with this bot.
+Transliterate Spanish to Andalûh EPA on Discord Servers with this bot.
 
 <img width="800" alt="andaluh-discord about" src="https://github.com/andalugeeks/andaluh-discord/raw/master/img/andaluh-discord.png?raw=true">
 
@@ -40,7 +40,7 @@ DISCORD_TOKEN={your-bot-token}
 $ python3 app/andaluhbot.py
 ```
 
-A `docker-compose` file is also included. If you want to run the bot on a dockerized environment, ddit your `DISCORD_TOKEN` inside the `docker-compose.yml` file and run:
+A `docker-compose` file is also included. If you want to run the bot on a dockerized environment, edit your `DISCORD_TOKEN` inside the `docker-compose.yml` file and run:
 
 ```
 $ docker-compose up --build -d
@@ -48,7 +48,7 @@ $ docker-compose up --build -d
 
 ## Usage
 
-The bot comes with 4 slash commands (starting with /)
+The bot has 4 slash/application commands (type '/' to view them).
 
 * `/an`: Get Andalûh EPA standard transliteration (using 'ç')
 * `/anz`: Andalûh EPA Zezeo transliteration
