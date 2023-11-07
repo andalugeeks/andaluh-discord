@@ -48,7 +48,7 @@ $ docker-compose up --build -d
 
 ## Usage
 
-The bot has 4 slash/application commands (type '/' to view them).
+The bot has 4 slash/application commands (type '/' to view them). You need to use the sync prefix command first for application commands to show. The prefix set for this bot is its own @mention. Example: `@andaluhbot sync`.
 
 * `/an`: Get Andalûh EPA standard transliteration (using 'ç')
 * `/anz`: Andalûh EPA Zezeo transliteration
