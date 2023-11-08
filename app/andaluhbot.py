@@ -56,10 +56,11 @@ async def help(ctx: commands.Context):
 @bot.tree.command(description="Type in spanish to get Andalûh EPA transliteration.")
 @app_commands.describe(text="Text to transliterate")
 async def an(interaction: Interaction, text: str):
+    await interaction.response.defer()
     result = requests.get(
         API_ANDALUH, params=dict(spanish=text, escapeLinks=True)
     ).json()
-    await interaction.response.send_message(result["andaluh"])
+    await interaction.followup.send(result["andaluh"])
 
 
 @bot.tree.command(
@@ -67,10 +68,11 @@ async def an(interaction: Interaction, text: str):
 )
 @app_commands.describe(text="Text to transliterate")
 async def anz(interaction: Interaction, text: str):
+    await interaction.response.defer()
     result = requests.get(
         API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="z")
     ).json()
-    await interaction.response.send_message(result["andaluh"])
+    await interaction.followup.send(result["andaluh"])
 
 
 @bot.tree.command(
@@ -78,10 +80,11 @@ async def anz(interaction: Interaction, text: str):
 )
 @app_commands.describe(text="Text to transliterate")
 async def ans(interaction: Interaction, text: str):
+    await interaction.response.defer()
     result = requests.get(
         API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="s")
     ).json()
-    await interaction.response.send_message(result["andaluh"])
+    await interaction.followup.send(result["andaluh"])
 
 
 @bot.tree.command(
@@ -89,10 +92,11 @@ async def ans(interaction: Interaction, text: str):
 )
 @app_commands.describe(text="Text to transliterate")
 async def anh(interaction: Interaction, text: str):
+    await interaction.response.defer()
     result = requests.get(
         API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="h")
     ).json()
-    await interaction.response.send_message(result["andaluh"])
+    await interaction.followup.send(result["andaluh"])
 
 
 def main():
