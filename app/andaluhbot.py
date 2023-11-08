@@ -38,7 +38,7 @@ HELP = """
 
 @bot.event
 async def on_ready():
-    print(f"Logged in as {bot}")
+    print(f"Logged in as {bot.user}")
 
 
 @bot.command(help="Sync bot tree")
@@ -62,7 +62,7 @@ async def an(interaction: Interaction, text: str):
     await interaction.response.send_message(result["andaluh"])
 
 
-@bot.tree.command(help="Type in spanish to get Andalûh EPA Zezeo transliteration.")
+@bot.tree.command(description="Type in spanish to get Andalûh EPA Zezeo transliteration.")
 @app_commands.describe(text="Text to transliterate")
 async def anz(interaction: Interaction, text: str):
     result = requests.get(
@@ -71,7 +71,7 @@ async def anz(interaction: Interaction, text: str):
     await interaction.response.send_message(result["andaluh"])
 
 
-@bot.tree.command(help="Type in spanish to get Andalûh EPA Seseo transliteration.")
+@bot.tree.command(description="Type in spanish to get Andalûh EPA Seseo transliteration.")
 @app_commands.describe(text="Text to transliterate")
 async def ans(interaction: Interaction, text: str):
     result = requests.get(
@@ -80,9 +80,9 @@ async def ans(interaction: Interaction, text: str):
     await interaction.response.send_message(result["andaluh"])
 
 
-@bot.tree.command(help="Type in spanish to get Andalûh EPA Heheo transliteration.")
+@bot.tree.command(description="Type in spanish to get Andalûh EPA Heheo transliteration.")
 @app_commands.describe(text="Text to transliterate")
-async def an(interaction: Interaction, text: str):
+async def anh(interaction: Interaction, text: str):
     result = requests.get(
         API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="h")
     ).json()
