@@ -17,7 +17,7 @@ API_ANDALUH = "https://api.andaluh.es/epa"
 
 # Discord bot instance
 bot = commands.Bot(
-    command_prefix=commands.when_mentioned, help_command=None, intents=Intents.none()
+    command_prefix=commands.when_mentioned, help_command=None, intents=Intents.default()
 )
 
 HELP = """
@@ -62,7 +62,9 @@ async def an(interaction: Interaction, text: str):
     await interaction.response.send_message(result["andaluh"])
 
 
-@bot.tree.command(description="Type in spanish to get Andalûh EPA Zezeo transliteration.")
+@bot.tree.command(
+    description="Type in spanish to get Andalûh EPA Zezeo transliteration."
+)
 @app_commands.describe(text="Text to transliterate")
 async def anz(interaction: Interaction, text: str):
     result = requests.get(
@@ -71,7 +73,9 @@ async def anz(interaction: Interaction, text: str):
     await interaction.response.send_message(result["andaluh"])
 
 
-@bot.tree.command(description="Type in spanish to get Andalûh EPA Seseo transliteration.")
+@bot.tree.command(
+    description="Type in spanish to get Andalûh EPA Seseo transliteration."
+)
 @app_commands.describe(text="Text to transliterate")
 async def ans(interaction: Interaction, text: str):
     result = requests.get(
@@ -80,7 +84,9 @@ async def ans(interaction: Interaction, text: str):
     await interaction.response.send_message(result["andaluh"])
 
 
-@bot.tree.command(description="Type in spanish to get Andalûh EPA Heheo transliteration.")
+@bot.tree.command(
+    description="Type in spanish to get Andalûh EPA Heheo transliteration."
+)
 @app_commands.describe(text="Text to transliterate")
 async def anh(interaction: Interaction, text: str):
     result = requests.get(
