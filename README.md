@@ -19,7 +19,6 @@ You can setup a python virtualenvironment to run the bot. Let's create a virtual
 ```
 cd andaluh-discord/
 python3 -m venv .env
-pip3 install -r requirements
 source .env/bin/activate
 pip install -r requirements.txt
 ```
