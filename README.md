@@ -48,12 +48,14 @@ $ docker-compose up --build -d
 
 ## Usage
 
-The bot has 4 slash/application commands (type '/' to view them). You need to use the sync prefix command first for application commands to show. The prefix set for this bot is its own @mention. Example: `@andaluhbot sync`.
+The bot has 1 slash/application commands (type '/' to view them). You need to use the sync prefix command first for application commands to show. The prefix set for this bot is its own @mention. Example: `@andaluhbot sync`.
 
-* `/an`: Get Andalûh EPA standard transliteration (using 'ç')
-* `/anz`: Andalûh EPA Zezeo transliteration
-* `/ans`: Andalûh EPA Seseo transliteration
-* `/anh`: Andalûh EPA Heheo transliteration
+* `/andaluh`: Get Andalûh EPA standard transliteration (using 'ç')
+
+The command has two parameters:
+
+* `text`: Text to transliterate
+* `[Optional] variant`: Choose one of the three variants of transliteration instead of 'ç' (zezeo, seseo or heheo)
 
 ## Support
 
