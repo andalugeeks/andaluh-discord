@@ -9,6 +9,7 @@ import os
 
 import requests
 from discord import Embed, Intents, Interaction, app_commands
+from discord.errors import Forbidden
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -66,15 +67,19 @@ async def help(ctx: commands.Context):
 async def andaluh(
     interaction: Interaction, text: str, variant: app_commands.Choice[str] = None
 ):
-    await interaction.response.defer(ephemeral=True)
+    await interaction.response.defer(
+        ephemeral=interaction.app_permissions.manage_webhooks
+    )
 
     params = {"spanish": text, "escapeLinks": True}
     if variant:
         params["vaf"] = variant.value
     result = requests.get(API_ANDALUH, params=params).json()
 
-    await send_webhook_message(interaction, result["andaluh"])
-    await interaction.followup.send("Tradûççión finiquitá!")
+    try:
+        await send_webhook_message(interaction, result["andaluh"])
+    except Forbidden:
+        await interaction.followup.send(result["andaluh"])
 
 
 async def send_webhook_message(interaction: Interaction, text):
@@ -85,6 +90,7 @@ async def send_webhook_message(interaction: Interaction, text):
         avatar_url=interaction.user.display_avatar.url,
     )
     await webhook.delete()
+    await interaction.followup.send("Tradûççión finiquitá!")
 
 
 def main():
