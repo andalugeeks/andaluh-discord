@@ -8,7 +8,7 @@
 import os
 
 import requests
-from discord import Intents, Interaction, app_commands
+from discord import Embed, Intents, Interaction, TextChannel, app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -21,12 +21,9 @@ bot = commands.Bot(
 )
 
 HELP = """
-🇳🇬 Guenâ! Çoy un bot trâccrîttôh Andalûh EPA. Dîppongo de lô çigientê comandô. Pruébalô:
+Guenâ! Çoy un bot trâccrîttôh Andalûh EPA. Dîppongo de lô çigientê comandô. Pruébalô:
 
-/an   Trâccribe Câtteyano - Andalûh (EPA) uçando grafía integraora 'ç'
-/anz  Iguâh pero zezeando
-/ans  Iguâh pero seseando
-/anh  Iguâh pero heheando
+``/andaluh`` Trâccribe Câtteyano -> Andalûh (EPA) uçando grafía integraora 'ç' o una de çûh bariantê de zezeo, seseo o heheo.
 
 Çi quierê çabêh mâh çobre Andalûh y EPA:
 
@@ -34,6 +31,7 @@ HELP = """
 👉 Trâccrîttôh online https://andaluh.es/transcriptor
 👉 Teclao Andalûh EPA https://andaluh.es/teclado-andaluz
 """
+EMBED_COLOR = 0x5DBB41
 
 
 @bot.event
@@ -42,6 +40,7 @@ async def on_ready():
 
 
 @bot.command(help="Sync bot tree")
+@commands.is_owner()
 async def sync(ctx: commands.Context):
     await bot.tree.sync()
     await ctx.send("Synced application commands")
@@ -49,54 +48,50 @@ async def sync(ctx: commands.Context):
 
 @bot.command(help="Bot help")
 async def help(ctx: commands.Context):
-    await ctx.send(HELP)
+    await ctx.send(embed=Embed(description=HELP, color=EMBED_COLOR))
 
 
-# Andaluh slash commands
-@bot.tree.command(description="Type in spanish to get Andalûh EPA transliteration.")
-@app_commands.describe(text="Text to transliterate")
-async def an(interaction: Interaction, text: str):
-    await interaction.response.defer()
-    result = requests.get(
-        API_ANDALUH, params=dict(spanish=text, escapeLinks=True)
-    ).json()
-    await interaction.followup.send(result["andaluh"])
-
-
-@bot.tree.command(
-    description="Type in spanish to get Andalûh EPA Zezeo transliteration."
+# Andaluh slash command
+@bot.tree.command(description="Type in Spanish to get Andalûh EPA transliteration")
+@app_commands.describe(
+    text="Text to transliterate", variant="Transliterate using one of the variants"
 )
-@app_commands.describe(text="Text to transliterate")
-async def anz(interaction: Interaction, text: str):
-    await interaction.response.defer()
-    result = requests.get(
-        API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="z")
-    ).json()
-    await interaction.followup.send(result["andaluh"])
-
-
-@bot.tree.command(
-    description="Type in spanish to get Andalûh EPA Seseo transliteration."
+@app_commands.choices(
+    variant=[
+        app_commands.Choice(name="Zezeo", value="z"),
+        app_commands.Choice(name="Seseo", value="s"),
+        app_commands.Choice(name="Heheo", value="h"),
+    ]
 )
-@app_commands.describe(text="Text to transliterate")
-async def ans(interaction: Interaction, text: str):
-    await interaction.response.defer()
-    result = requests.get(
-        API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="s")
-    ).json()
-    await interaction.followup.send(result["andaluh"])
+async def andaluh(
+    interaction: Interaction, text: str, variant: app_commands.Choice[str] = None
+):
+    use_webook = (
+        isinstance(interaction.channel, TextChannel)
+        and interaction.app_permissions.manage_webhooks
+    )
+    await interaction.response.defer(ephemeral=use_webook)
+
+    params = {"spanish": text, "escapeLinks": True}
+    if variant:
+        params["vaf"] = variant.value
+    result = requests.get(API_ANDALUH, params=params).json()
+
+    if use_webook:
+        await send_webhook_message(interaction, result["andaluh"])
+    else:
+        await interaction.followup.send(result["andaluh"])
 
 
-@bot.tree.command(
-    description="Type in spanish to get Andalûh EPA Heheo transliteration."
-)
-@app_commands.describe(text="Text to transliterate")
-async def anh(interaction: Interaction, text: str):
-    await interaction.response.defer()
-    result = requests.get(
-        API_ANDALUH, params=dict(spanish=text, escapeLinks=True, vaf="h")
-    ).json()
-    await interaction.followup.send(result["andaluh"])
+async def send_webhook_message(interaction: Interaction, text):
+    webhook = await interaction.channel.create_webhook(name=bot.user.name)
+    await webhook.send(
+        text,
+        username=interaction.user.display_name,
+        avatar_url=interaction.user.display_avatar.url,
+    )
+    await webhook.delete()
+    await interaction.followup.send("Tradûççión finiquitá!")
 
 
 def main():
