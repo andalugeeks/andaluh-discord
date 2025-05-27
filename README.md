@@ -2,9 +2,6 @@
 
 Transliterate Spanish to Andalûh EPA on Discord Servers with this bot.
 
-<img width="800" alt="andaluh-discord about" src="https://github.com/andalugeeks/andaluh-discord/raw/master/img/andaluh-discord.png?raw=true">
-
-
 ## Table of Contents
 
 - [Install](#install)
