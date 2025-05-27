@@ -8,7 +8,7 @@
 import os
 
 import requests
-from discord import Embed, Intents, Interaction, app_commands
+from discord import Embed, Intents, Interaction, TextChannel, app_commands
 from discord.errors import Forbidden
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -67,18 +67,20 @@ async def help(ctx: commands.Context):
 async def andaluh(
     interaction: Interaction, text: str, variant: app_commands.Choice[str] = None
 ):
-    await interaction.response.defer(
-        ephemeral=interaction.app_permissions.manage_webhooks
+    use_webook = (
+        isinstance(interaction.channel, TextChannel)
+        and interaction.app_permissions.manage_webhooks
     )
+    await interaction.response.defer(ephemeral=use_webook)
 
     params = {"spanish": text, "escapeLinks": True}
     if variant:
         params["vaf"] = variant.value
     result = requests.get(API_ANDALUH, params=params).json()
 
-    try:
+    if use_webook:
         await send_webhook_message(interaction, result["andaluh"])
-    except Forbidden:
+    else:
         await interaction.followup.send(result["andaluh"])
 
 
