@@ -9,7 +9,6 @@ import os
 
 import requests
 from discord import Embed, Intents, Interaction, TextChannel, app_commands
-from discord.errors import Forbidden
 from discord.ext import commands
 from dotenv import load_dotenv
 
